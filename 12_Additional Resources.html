@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFERNO</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Page Styling */
+        body {
+            background: url('fires.jpg') no-repeat center center fixed;
+            background-color:black;
+            background-size: cover;
+            margin: 0;
+            font-family: "Inconsolata", monospace;
+            color: white;
+            overflow-y: scroll; /* Enables scrolling */
+        }
+
+        /* Sticky Title and Subtitle Wrapper */
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 200; /* Keep above scrollable content */
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            padding: 1em;
+            margin: 0;
+        }
+
+        /* Title and Subtitle Styles */
+        .teko-unique {
+            font-family: "Teko", sans-serif;
+            font-weight: 500;
+            font-size: 8em;
+            text-align: left;
+            color: white;
+            line-height: 0.85;
+            margin-bottom: 0.05em;
+        }
+
+        .subtitle-text {
+            font-family: "Inconsolata", monospace;
+            font-weight: 500;
+            font-size: 1.5em;
+            color: white;
+            text-align: left;
+            margin-top: -1.2em;
+        }
+
+        /* Wrapper for scrollable content */
+        .content-wrapper {
+            margin-top: -1em; /* This ensures content starts below sticky titles */
+            padding: 5em 10%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2em;
+            box-sizing: border-box;
+        }
+
+        /* Resource Box Styles */
+        .resource-box {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 2em;
+            border-radius: 10px;
+            width: 45%;
+            min-width: 300px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        /* Title & Description */
+        .resource-title {
+            font-family: "Teko", sans-serif;
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 0.5em;
+        }
+
+        .resource-description {
+            font-size: 1.2em;
+            line-height: 1.5;
+            margin-bottom: 1.5em;
+        }
+
+        /* Resource Button */
+        .resource-link {
+            display: inline-block;
+            background-color: #ee2341;
+            color: white;
+            font-size: 1.2em;
+            padding: 0.8em 1.5em;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .resource-link:hover {
+            background-color: white;
+            color:#ee2341;
+        }
+
+        /* Navigation Button (Top Right) */
+        .nav-button {
+            position: absolute;
+            top: 6em;
+            right: 3em;
+            width: 3.75em;
+            height: 3.75em;
+            background: none;
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 2s ease, transform 0.3s ease;
+            z-index: 200;
+        }
+
+        .nav-button::before {
+            content: "";
+            display: block;
+            width: 1.875em;
+            height: 1.875em;
+            border-right: 0.375em solid white;
+            border-bottom: 0.375em solid white;
+            transform: rotate(-45deg);
+            margin: auto;
+        }
+
+        .nav-button:hover::before {
+            border-right: 0.375em solid #ee2341;
+            border-bottom: 0.375em solid #ee2341;
+            transform: rotate(-45deg) scale(1.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .resource-box {
+                width: 100%;
+            }
+
+            .teko-unique {
+                font-size: 5em; /* Adjusts font size on smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="nav-button" onclick="window.location.href='index.html'"></button>
+
+    <!-- Sticky Title and Subtitle Wrapper -->
+    <div class="sticky-header">
+        <h1 class="teko-unique">ADDITIONAL RESOURCES</h1>
+        <h2 class="subtitle-text">Fire Prevention and Preparedness</h2>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="resource-box">
+            <div class="resource-title">National Fire Protection Association</div>
+            <div class="resource-description">The NFPA provides extensive resources, tips, and information to help keep you and your family safe from fire and related hazards.</div>
+            <a class="resource-link" href="https://www.nfpa.org/NFPA-Solutions?gad_source=1&gclid=CjwKCAjwnPS-BhBxEiwAZjMF0ifN7JkuC4L_-mLhVNp3Werodpc0O84c4dSK3gEnV-zp0UgDX2oNyRoCbVoQAvD_BwE&gclsrc=aw.ds" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="resource-box">
+            <div class="resource-title">American Red Cross - Fire Safety</div>
+            <div class="resource-description">Offers guidance on protecting your home and loved ones from fires, including safety tips and preparedness strategies.</div>
+            <a class="resource-link" href="https://www.redcross.org/get-help/how-to-prepare-for-emergencies/types-of-emergencies/fire.html?srsltid=AfmBOorB7GM_KwgtkoJTVAU9xqkGzIrc4Psxea96F6DHywRvDghO8WsZ" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="resource-box">
+            <div class="resource-title">U.S. Fire Administration (USFA)</div>
+            <div class="resource-description">Works to improve fire prevention and safety by collecting data, conducting research, and providing training for firefighters and emergency responders.</div>
+            <a class="resource-link" href="https://www.usfa.fema.gov/prevention/" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="resource-box">
+            <div class="resource-title">Ready.gov - Wildfires</div>
+            <div class="resource-description">Provides information on preparing for wildfires, including evacuation plans, emergency kits, and staying informed through alerts.</div>
+            <a class="resource-link" href="https://www.ready.gov/wildfires" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="resource-box">
+            <div class="resource-title">CAL FIRE - Wildfire Preparedness</div>
+            <div class="resource-description">Offers resources such as the "Go! Evacuation Guide" to help Californians prepare for wildfire emergencies.</div>
+            <a class="resource-link" href="https://www.fire.ca.gov/prepare" target="_blank">Visit Website</a>
+        </div>
+
+        <div class="resource-box">
+            <div class="resource-title">National Interagency Fire Center (NIFC)</div>
+            <div class="resource-description">Collaborates on wildfire prevention and provides educational materials to promote fire safety.</div>
+            <a class="resource-link" href="https://www.nifc.gov/fire-information" target="_blank">Visit Website</a>
+        </div>
+    </div>
+
+</body>
+</html>

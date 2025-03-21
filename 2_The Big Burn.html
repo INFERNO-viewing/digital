@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFERNO</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: url('2_Great Fire of 1910.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .media-container {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .video {
+            position: absolute;
+            width: 35em;
+            height: 19.6875em;
+            opacity: 0.9;
+        }
+
+        .inferno-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 0;
+            position: absolute;
+            top: 0;  /* Moves it to the top */
+            left: 0; /* Moves it to the left */
+            opacity: 0;
+            transition: opacity 5s ease;
+        }
+
+
+        /* INFERNO Title */
+        .teko-unique {
+            font-family: "Teko", sans-serif;
+            font-weight: 500;
+            font-size: 8em;
+            text-align: left;
+            color: white;
+            line-height: 0.85; /* Further reduces vertical spacing */
+            margin-bottom: -0.25em; /* Pulls subtitle even closer */
+        }
+
+        /* Subtitle */
+        .subtitle-text {
+            font-family: "Inconsolata", monospace;
+            font-weight: 500;
+            font-size: 1.5em;
+            color: white;
+            text-align: left;
+            margin-top: -1.2em; /* Further tightens spacing */
+        }
+
+
+        /* Intro Text */
+        .intro-text {
+            font-family: "Inconsolata", monospace;
+            font-weight: 500;
+            font-size: 1.5em;
+            color: #ee2341;
+            background-color: white;
+            padding: 1.25em;
+            text-align: left;
+            max-width: 100%;
+        }
+
+        /* Arrow Navigation Button */
+        .nav-button {
+            position: absolute;
+            top: 6em;
+            right: 3em;
+            width: 3.75em;
+            height: 3.75em;
+            background: none;
+            border: none;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 2s ease, transform 0.3s ease;
+            z-index: 200;
+        }
+
+        .nav-button::before {
+            content: "";
+            display: block;
+            width: 1.875em;
+            height: 1.875em;
+            border-right: 0.375em solid white;
+            border-bottom: 0.375em solid white;
+            transform: rotate(-45deg);
+            margin: auto;
+        }
+
+        .nav-button:hover::before {
+            border-right: 0.375em solid #ee2341;
+            border-bottom: 0.375em solid #ee2341;
+            transform: rotate(-45deg) scale(1.3);
+        }
+
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="media-container" id="mediaContainer"></div>
+    <audio id="backgroundAudio" loop>
+        <source src="background.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const videos = [
+            { src: "https://www.youtube.com/embed/RzEaoTZ3MX4?autoplay=1&enablejsapi=1&loop=1&playlist=RzEaoTZ3MX4", top: "7%", left: "15%" },
+            { src: "https://www.youtube.com/embed/aXmm9GxOx0Y?autoplay=1&enablejsapi=1&loop=1&playlist=aXmm9GxOx0Y", top: "43%", left: "77%" },
+            { src: "https://www.youtube.com/embed/Aa71l-t8bJw?autoplay=1&enablejsapi=1&loop=1&playlist=Aa71l-t8bJw", top: "19%", left: "55%" },
+            { src: "https://www.youtube.com/embed/5jGSGL-6prg?autoplay=1&enablejsapi=1&loop=1&playlist=5jGSGL-6prg", top: "62%", left: "5%" },
+            { src: "https://www.youtube.com/embed/mD28TLzPd4g?autoplay=1&enablejsapi=1&loop=1&playlist=mD28TLzPd4g", top: "74%", left: "30%" },
+            { src: "https://www.youtube.com/embed/RzEaoTZ3MX4?autoplay=1&enablejsapi=1&loop=1&playlist=RzEaoTZ3MX4", top: "57%", left: "85%" },
+        ];
+
+
+        setTimeout(() => {
+            const introText = document.createElement('div');
+            introText.className = 'intro-text';
+            introText.innerHTML = "The Big Burn, 1910 <br> Also called the Great Fire of Connecticut, Big Blowup or the Devil’s Broom fire, this wildfire roared through the states of Idaho and Montana during the summer months of 1910.";
+            introText.style.position = 'absolute';
+            introText.style.bottom = '1.5em';
+            introText.style.left = '50%';
+            introText.style.transform = 'translateX(-50%)';
+            introText.style.opacity = '0';
+            introText.style.transition = 'opacity 3s ease';
+
+            document.body.appendChild(introText);
+
+            setTimeout(() => {
+                introText.style.opacity = 1;
+            }, 100);
+
+            setTimeout(() => {
+                introText.style.opacity = 0;
+            }, 15000);
+
+            let videoIndex = 0;
+            function loadNextVideo() {
+                if (videoIndex < videos.length) {
+                    const video = videos[videoIndex];
+                    const iframe = document.createElement("iframe");
+                    iframe.src = video.src;
+                    iframe.className = "video";
+                    iframe.style.top = video.top;
+                    iframe.style.left = video.left;
+                    iframe.allow = "autoplay; encrypted-media; muted"; // Ensure autoplay works
+                    iframe.setAttribute("allowfullscreen", ""); // Allow full-screen playback
+
+                    document.getElementById("mediaContainer").appendChild(iframe);
+
+                    videoIndex++;
+
+                    // Adjust timing based on the index
+                    if (videoIndex === 1) {
+                        setTimeout(loadNextVideo, 8000);  // Second video loads after 8 seconds
+                    } else {
+                        setTimeout(loadNextVideo, 3000);  // Subsequent videos load after 3 seconds
+                    }
+
+                } else {
+                    setTimeout(() => {
+                        // Create a wrapper for INFERNO + text
+                        const infernoWrapper = document.createElement('div');
+                        infernoWrapper.style.position = 'absolute';
+                        infernoWrapper.style.top = '18%';
+                        infernoWrapper.style.left = '8%';
+                        infernoWrapper.style.textAlign = 'center';
+                        infernoWrapper.style.opacity = '0';
+                        infernoWrapper.style.transition = 'opacity 5s ease';
+
+                        // Create INFERNO title
+                        const infernoText = document.createElement('div');
+                        infernoText.className = 'teko-unique';
+                        infernoText.textContent = "THE BIG BURN, 1910";
+
+                        // Create subtitle
+                        const subtitleText = document.createElement('div');
+                        subtitleText.className = 'subtitle-text';
+                        subtitleText.innerHTML = "3M ACRES BURNED";
+                        subtitleText.style.position = 'static';
+                        subtitleText.style.marginTop = '0.5em';
+
+                        // Append both elements inside the wrapper
+                        infernoWrapper.appendChild(infernoText);
+                        infernoWrapper.appendChild(subtitleText);
+                        document.body.appendChild(infernoWrapper);
+
+                        // Fade in effect
+                        setTimeout(() => {
+                            infernoWrapper.style.opacity = 1;
+                        }, 100);
+
+                        // Show nav button after fade-in
+                        setTimeout(() => {
+                            const navButton = document.createElement('button');
+                            navButton.className = 'nav-button';
+                            navButton.onclick = () => window.location.href = '3_Bolivia 2010.html';
+                            document.body.appendChild(navButton);
+
+                            setTimeout(() => {
+                                navButton.style.opacity = 1;
+                            }, 5000);
+                        }, 2000);
+                    }, 3000);
+                }
+            }
+
+            setTimeout(loadNextVideo, 18000);
+        }, 3000);
+    </script>
+</body>
+</html>
